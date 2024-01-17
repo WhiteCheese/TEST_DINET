@@ -1,0 +1,120 @@
+﻿<div class="modal fade" id="modalCrearMovimientoInventario" tabindex="-1" aria-labelledby="crearMovimientoInventarioModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="crearMovimientoInventarioModalLabel">Crear Movimiento Inventario</h5>
+            </div>
+            <div class="modal-body">
+                <form id="formMovimientoInventario" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="mb-3">
+                        <label for="COD_CIA" class="form-label">COD_CIA</label>
+                        <input type="text" id="COD_CIA" class="form-control" />
+                        <span class="text-danger" id="COD_CIA"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="COMPANIA_VENTA_3" class="form-label">COMPANIA_VENTA_3</label>
+                        <input type="text" id="COMPANIA_VENTA_3" class="form-control" />
+                        <span class="text-danger" id="COMPANIA_VENTA_3"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ALMACEN_VENTA" class="form-label">ALMACEN_VENTA</label>
+                        <input type="text" id="ALMACEN_VENTA" class="form-control" />
+                        <span class="text-danger" id="ALMACEN_VENTA"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="TIPO_MOVIMIENTO" class="form-label">TIPO_MOVIMIENTO</label>
+                        <input type="text" id="TIPO_MOVIMIENTO" class="form-control" />
+                        <span class="text-danger" id="TIPO_MOVIMIENTO"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="TIPO_DOCUMENTO" class="form-label">TIPO_DOCUMENTO</label>
+                        <input type="text" id="TIPO_DOCUMENTO" class="form-control" />
+                        <span class="text-danger" id="TIPO_DOCUMENTO"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="NRO_DOCUMENTO" class="form-label">NRO_DOCUMENTO</label>
+                        <input type="text" id="NRO_DOCUMENTO" class="form-control" />
+                        <span class="text-danger" id="NRO_DOCUMENTO"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="COD_ITEM_2" class="form-label">COD_ITEM_2</label>
+                        <input type="text" id="COD_ITEM_2" class="form-control" />
+                        <span class="text-danger" id="COD_ITEM_2"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="crearMovimientoInventario()">Crear</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalActualizarMovimientoInventario" tabindex="-1" aria-labelledby="actualizarMovimientoInventarioModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="actualizarMovimientoInventarioModalLabel">Actualizar Movimiento Inventario</h5>
+            </div>
+            <div class="modal-body">
+                <form id="formActualizarMovimientoInventario" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="mb-3">
+                        <label for="COD_CIA_Editado" class="form-label">COD_CIA</label>
+                        <input type="text" id="COD_CIA_Editado" class="form-control" />
+                        <span class="text-danger" id="COD_CIA_Editado"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="COMPANIA_VENTA_3_Editado" class="form-label">COMPANIA_VENTA_3</label>
+                        <input type="text" id="COMPANIA_VENTA_3_Editado" class="form-control" />
+                        <span class="text-danger" id="COMPANIA_VENTA_3_Editado"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ALMACEN_VENTA_Editado" class="form-label">ALMACEN_VENTA</label>
+                        <input type="text" id="ALMACEN_VENTA_Editado" class="form-control" />
+                        <span class="text-danger" id="ALMACEN_VENTA_Editado"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="TIPO_MOVIMIENTO_Editado" class="form-label">TIPO_MOVIMIENTO</label>
+                        <input type="text" id="TIPO_MOVIMIENTO_Editado" class="form-control" />
+                        <span class="text-danger" id="TIPO_MOVIMIENTO_Editado"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="TIPO_DOCUMENTO_Editado" class="form-label">TIPO_DOCUMENTO</label>
+                        <input type="text" id="TIPO_DOCUMENTO_Editado" class="form-control" />
+                        <span class="text-danger" id="TIPO_DOCUMENTO_Editado"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="NRO_DOCUMENTO_Editado" class="form-label">NRO_DOCUMENTO</label>
+                        <input type="text" id="NRO_DOCUMENTO_Editado" class="form-control" />
+                        <span class="text-danger" id="NRO_DOCUMENTO_Editado"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="COD_ITEM_2_Editado" class="form-label">COD_ITEM_2</label>
+                        <input type="text" id="COD_ITEM_2_Editado" class="form-control" />
+                        <span class="text-danger" id="COD_ITEM_2_Editado"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="PROVEEDOR_Editado" class="form-label">PROVEEDOR</label>
+                        <input type="text" id="PROVEEDOR_Editado" class="form-control" />
+                        <span class="text-danger" id="PROVEEDOR_Editado"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="actualizarDepartamento(COD_CIA_Editado.value,
+                                                                                              COMPANIA_VENTA_3_Editado.value
+ALMACEN_VENTA_Editado.value
+TIPO_MOVIMIENTO_Editado.value
+TIPO_DOCUMENTO_Editado.value
+NRO_DOCUMENTO_Editado.value
+COD_ITEM_2_Editado.value
+PROVEEDOR_Editado.value)">Actualizar</button>
+            </div>
+        </div>
+    </div>
+</div>

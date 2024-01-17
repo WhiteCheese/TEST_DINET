@@ -1,0 +1,49 @@
+﻿@model List<MovimientoInventario>
+
+<table id="tablaMovimientoInventario" class="table centered-table">
+    <thead>
+        <tr>
+            <th class="centered-header">COD_CIA</th>
+            <th class="centered-header">COMPANIA_VENTA_3</th>
+            <th class="centered-header">ALMACEN_VENTA</th>
+            <th class="centered-header">TIPO_MOVIMIENTO</th>
+            <th class="centered-header">TIPO_DOCUMENTO</th>
+            <th class="centered-header">NRO_DOCUMENTO</th>
+            <th class="centered-header">COD_ITEM_2</th>
+            <th class="centered-header">PROVEEDOR</th>
+            <th class="centered-header">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movimientoInventario in Model)
+        {
+            <tr>
+                <td>@movimientoInventario.COD_CIA</td>
+                <td>@movimientoInventario.COMPANIA_VENTA_3</td>
+                <td>@movimientoInventario.ALMACEN_VENTA</td>
+                <td>@movimientoInventario.TIPO_MOVIMIENTO</td>
+                <td>@movimientoInventario.TIPO_DOCUMENTO</td>
+                <td>@movimientoInventario.NRO_DOCUMENTO</td>
+                <td>@movimientoInventario.COD_ITEM_2</td>
+                <td>@movimientoInventario.PROVEEDOR</td>
+                <td>
+                    <button type="button" class="btn btn-primary" onclick="abrirModalActualizarMovimientoInventario('@movimientoInventario.COD_CIA',
+                                                                                               '@movimientoInventario.COMPANIA_VENTA_3',
+                                                                                               '@movimientoInventario.ALMACEN_VENTA',
+                                                                                               '@movimientoInventario.TIPO_MOVIMIENTO',
+                                                                                               '@movimientoInventario.TIPO_DOCUMENTO',
+                                                                                               '@movimientoInventario.NRO_DOCUMENTO',
+                                                                                               '@movimientoInventario.COD_ITEM_2')">Actualizar</button> 
+                    <button type="button" class="btn btn-danger" onclick="eliminarMovimientoInventario('@movimientoInventario.COD_CIA',
+                                                                                               '@movimientoInventario.COMPANIA_VENTA_3',
+                                                                                               '@movimientoInventario.ALMACEN_VENTA',
+                                                                                               '@movimientoInventario.TIPO_MOVIMIENTO',
+                                                                                               '@movimientoInventario.TIPO_DOCUMENTO',
+                                                                                               '@movimientoInventario.NRO_DOCUMENTO',
+                                                                                               '@movimientoInventario.COD_ITEM_2'
+                                                                                              )">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
