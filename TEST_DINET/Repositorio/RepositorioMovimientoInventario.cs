@@ -9,6 +9,7 @@ namespace TEST_DINET.Repositorio
 	{
 		Task<List<MovimientoInventario>> ObtenerMovimientosInventario();
         Task<MovimientoInventario> ObtenerMovimientoInventarioPorId(string COD_CIA, string COMPANIA_VENTA_3, string ALMACEN_VENTA, string TIPO_MOVIMIENTO, string TIPO_DOCUMENTO, string NRO_DOCUMENTO, string COD_ITEM_2);
+        Task<List<MovimientoInventario>> ObtenerMovimientosInventarioConFiltro(string TIPO_DOCUMENTO, string NRO_DOCUMENTO, string PROVEEDOR);
         Task<Response> CrearMovimientoInventario(MovimientoInventario movimientoInventario);
         Task<Response> ActualizarMovimientoInventario(string COD_CIA, string COMPANIA_VENTA_3, string ALMACEN_VENTA, string TIPO_MOVIMIENTO, string TIPO_DOCUMENTO, string NRO_DOCUMENTO, string COD_ITEM_2, string PROVEEDOR);
         Task<Response> EliminarMovimientoInventario(string N_CODI_DEPA,string COMPANIA_VENTA_3,string ALMACEN_VENTA,string TIPO_MOVIMIENTO,string TIPO_DOCUMENTO,string NRO_DOCUMENTO,string COD_ITEM_2);
@@ -125,6 +126,64 @@ namespace TEST_DINET.Repositorio
             }
 
             return movimientoInventario;
+        }
+
+        [HttpPost]
+        public async Task<List<MovimientoInventario>> ObtenerMovimientosInventarioConFiltro(string TIPO_DOCUMENTO, string NRO_DOCUMENTO, string PROVEEDOR)
+        {
+            // Validar y asignar cadenas vacías si los parámetros son nulos
+            TIPO_DOCUMENTO ??= "";
+            NRO_DOCUMENTO ??= "";
+            PROVEEDOR ??= "";
+
+            List<MovimientoInventario> lista = new List<MovimientoInventario>();
+
+            var conexion = new SqlConnection(connectionString);
+
+            if (conexion.State != ConnectionState.Open) { await conexion.OpenAsync(); }
+
+            SqlDataReader reader = null;
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand("SP_LISTAR_MOVIMIENTOS_INVENTARIO_CON_FILTRO", conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@TIPO_DOCUMENTO", SqlDbType.VarChar, 50).Value = TIPO_DOCUMENTO;
+                cmd.Parameters.Add("@NRO_DOCUMENTO", SqlDbType.VarChar, 50).Value = NRO_DOCUMENTO;
+                cmd.Parameters.Add("@PROVEEDOR", SqlDbType.VarChar, 50).Value = PROVEEDOR;
+
+                reader = await cmd.ExecuteReaderAsync();
+
+                while (await reader.ReadAsync())
+                {
+                    lista.Add(new MovimientoInventario
+                    {
+                        COD_CIA = reader["COD_CIA"].ToString(),
+                        COMPANIA_VENTA_3 = reader["COMPANIA_VENTA_3"].ToString(),
+                        ALMACEN_VENTA = reader["ALMACEN_VENTA"].ToString(),
+                        TIPO_MOVIMIENTO = reader["TIPO_MOVIMIENTO"].ToString(),
+                        TIPO_DOCUMENTO = reader["TIPO_DOCUMENTO"].ToString(),
+                        NRO_DOCUMENTO = reader["NRO_DOCUMENTO"].ToString(),
+                        COD_ITEM_2 = reader["COD_ITEM_2"].ToString(),
+                        PROVEEDOR = reader["PROVEEDOR"].ToString()
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                if (reader != null)
+                {
+                    if (!reader.IsClosed) { reader.Close(); }
+                }
+            }
+            finally
+            {
+                if (conexion.State != ConnectionState.Closed) { conexion.Close(); }
+                conexion.Dispose();
+            }
+
+            return lista;
         }
 
         [HttpPost]

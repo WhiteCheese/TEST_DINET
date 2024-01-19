@@ -14,9 +14,23 @@ namespace TEST_DINET.Controllers
             this.repositorioMovimientoInventario = repositorioMovimientoInventario;
         }
 
+        [HttpGet]
         public async Task<ActionResult> Index()
         {
             var movimientosInventario = await repositorioMovimientoInventario.ObtenerMovimientosInventario();
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("Listado", movimientosInventario);
+            }
+
+            return View(movimientosInventario);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ObtenerMovimientosInventarioConFiltro(string TIPO_DOCUMENTO, string NRO_DOCUMENTO, string PROVEEDOR)
+        {
+            var movimientosInventario = await repositorioMovimientoInventario.ObtenerMovimientosInventarioConFiltro(TIPO_DOCUMENTO, NRO_DOCUMENTO, PROVEEDOR);
 
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
@@ -112,8 +126,7 @@ namespace TEST_DINET.Controllers
 
             try
             {
-                var respuesta = await repositorioMovimientoInventario.ActualizarMovimientoInventario(COD_CIA, COMPANIA_VENTA_3, ALMACEN_VENTA,
-                                                                                                   TIPO_MOVIMIENTO, TIPO_DOCUMENTO, NRO_DOCUMENTO, COD_ITEM_2, PROVEEDOR);
+                var respuesta = await repositorioMovimientoInventario.ActualizarMovimientoInventario(COD_CIA, COMPANIA_VENTA_3, ALMACEN_VENTA, TIPO_MOVIMIENTO, TIPO_DOCUMENTO, NRO_DOCUMENTO, COD_ITEM_2, PROVEEDOR);
                 N_PARM_SAL = respuesta.N_PARM_SAL;
                 C_PARM_SAL = respuesta.C_PARM_SAL;
             }
